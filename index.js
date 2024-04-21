@@ -1,4 +1,4 @@
-import {Wju} from 'wju-dzej-es/instance/Wju.js'
+import {Wju, createWjuInstance} from 'wju-dzej-es/instance/Wju.js'
 import {createElement} from 'wju-dzej-es/instance/VNodeGenerator.js'
 
 console.log('Hello, world!');
@@ -17,18 +17,24 @@ const rootComponentConfig = {
                 createElement('p', {on: {click: this.sayHello}, 'id':'abcd'}, [
                     this.reversedMessage
                 ]
-                )
+                ),
+                createElement('button', {on: {click: this.incrementCounter}}, [this.counter])
             ]
         );
     },
     data() {
         return {
-            message: 'Hello, world!'
+            message: 'Hello, world!',
+            counter:0
         }
     },
     methods: {
         sayHello() {
             alert(this.message);
+        },
+        incrementCounter() {
+            this.counter++;
+            console.log(this.counter)
         }
     },
     computed: {
@@ -38,5 +44,5 @@ const rootComponentConfig = {
     }
 }
 
-const rootComponent=new Wju(rootComponentConfig);
+const rootComponent=createWjuInstance(rootComponentConfig);
 rootComponent.$mount(document.body)
